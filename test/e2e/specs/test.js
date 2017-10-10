@@ -10,10 +10,12 @@ module.exports = {
 
     browser
       .url(devServer)
-      .waitForElementVisible('#app', 5000)
       .assert.elementPresent('.weather')
+      .assert.containsText('p', 'Awaiting weather data')
+      .waitForElementVisible('#ajax-complete', 5000)
       .assert.containsText('h1', 'Forecast')
-      .assert.elementCount('li', 7)
+      .assert.containsText('p', 'Drizzle today and Thursday')
+      .assert.elementCount('li', 8)
       .end()
   }
 }
