@@ -8,9 +8,8 @@ module.exports = {
     browser
       .url(devServer)
       .assert.elementPresent('.weather')
-      .assert.containsText('p', 'Awaiting weather data')
+      .assert.containsText('.weather-await-message', 'Awaiting weather data')
       .waitForElementVisible('#ajax-complete', 5000)
-      .assert.containsText('h1', 'Forecast')
       .assert.containsText('.weather-summary', 'Drizzle today and Thursday')
       .assert.elementCount('li', 8)
       .click('#bar_0')
@@ -18,9 +17,13 @@ module.exports = {
       .assert.containsText('.day-summary', 'Light rain in the afternoon')
       .click('#bar_4')
       .assert.containsText('.day-summary', 'Mostly cloudy until evening')
-      .click('.weather-interaction')
+      .click('#summary_btn')
       .assert.elementNotPresent('.day-summary')
       .assert.elementPresent('.weather-summary')
+      .click('#lows_btn')
+      .assert.attributeContains('#bar_0', 'title', '10.78')
+      .click('#highs_btn')
+      .assert.attributeContains('#bar_0', 'title', '16.3')
       .end()
   }
 }

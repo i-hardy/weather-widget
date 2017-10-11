@@ -103,21 +103,21 @@ describe('WeatherWidget.vue', () => {
     })
 
     it('sets the height in pixels for each day', () => {
-      day.apparentTemperatureHigh = 5
+      day.showTemp = 5
       widget.$data.daily.data = [day]
       widget.getDayStyles()
       expect(day.style).to.include('height:50px')
     })
 
     it('sets the blue day class if the temperature is below 17', () => {
-      day.apparentTemperatureHigh = 15
+      day.showTemp = 15
       widget.$data.daily.data = [day]
       widget.getDayStyles()
       expect(day.class).to.include('day-blue')
     })
 
     it('sets the orange day class if the temperature is 17 or above', () => {
-      day.apparentTemperatureHigh = 18
+      day.showTemp = 18
       widget.$data.daily.data = [day]
       widget.getDayStyles()
       expect(day.class).to.include('day-orange')
@@ -155,6 +155,48 @@ describe('WeatherWidget.vue', () => {
     it('hides the day summary', () => {
       widget.summaryRestore()
       expect(widget.showDaySummary).to.equal(false)
+    })
+  })
+
+  describe('#showLows', () => {
+    var day
+
+    beforeEach(() => {
+      day = {}
+      day.apparentTemperatureLow = 5
+      widget.$data.daily.data = [day]
+    })
+
+    it('sets the showTemp property of each day to its apparentTemperatureLow', () => {
+      widget.showLows()
+      expect(day.showTemp).to.equal(5)
+    })
+
+    it('calls getDayStyles to update the view', () => {
+      var styleSpy = sinon.spy(widget, 'getDayStyles')
+      widget.showLows()
+      expect(styleSpy).to.have.been.called
+    })
+  })
+
+  describe('#showHighs', () => {
+    var day
+
+    beforeEach(() => {
+      day = {}
+      day.apparentTemperatureHigh = 20
+      widget.$data.daily.data = [day]
+    })
+
+    it('sets the showTemp property of each day to its apparentTemperatureHigh', () => {
+      widget.showHighs()
+      expect(day.showTemp).to.equal(20)
+    })
+
+    it('calls getDayStyles to update the view', () => {
+      var styleSpy = sinon.spy(widget, 'getDayStyles')
+      widget.showHighs()
+      expect(styleSpy).to.have.been.called
     })
   })
 })
