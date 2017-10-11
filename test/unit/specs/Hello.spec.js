@@ -95,22 +95,66 @@ describe('WeatherWidget.vue', () => {
     })
   })
 
-  describe('#getDayStyle', (done) => {
+  describe('#getDayStyles', () => {
     var day
 
-    it('returns the height in pixels for the given day', () => {
-      day = { apparentTemperatureHigh: 5 }
-      expect(widget.getDayStyle(day)).to.include('height:50px')
+    beforeEach(() => {
+      day = {}
     })
 
-    it('returns a blue background if the temperature is below 17', () => {
-      day = { apparentTemperatureHigh: 15 }
-      expect(widget.getDayStyle(day)).to.include('background:#d1ecfa')
+    it('sets the height in pixels for each day', () => {
+      day.apparentTemperatureHigh = 5
+      widget.$data.daily.data = [day]
+      widget.getDayStyles()
+      expect(day.style).to.include('height:50px')
     })
 
-    it('returns an orange background if the temperature is 17 or above', () => {
-      day = { apparentTemperatureHigh: 18 }
-      expect(widget.getDayStyle(day)).to.include('background:#ffc125')
+    it('sets the blue day class if the temperature is below 17', () => {
+      day.apparentTemperatureHigh = 15
+      widget.$data.daily.data = [day]
+      widget.getDayStyles()
+      expect(day.class).to.include('day-blue')
+    })
+
+    it('sets the orange day class if the temperature is 17 or above', () => {
+      day.apparentTemperatureHigh = 18
+      widget.$data.daily.data = [day]
+      widget.getDayStyles()
+      expect(day.class).to.include('day-orange')
+    })
+  })
+
+  describe('#clickDay', () => {
+    var day
+
+    beforeEach(() => {
+      day = {}
+    })
+
+    it('shows the specific day summary', () => {
+      day.summary = 'Raining cats and dogs'
+      widget.$data.daily.data = [day]
+      widget.clickDay(day)
+      expect(widget.daySummary).to.equal('Raining cats and dogs')
+    })
+
+    it('shows the day summary', () => {
+      widget.$data.daily.data = [day]
+      widget.clickDay(day)
+      expect(widget.showDaySummary).to.equal(true)
+    })
+  })
+
+  describe('#summaryRestore', () => {
+    beforeEach(() => {
+      var day = {}
+      widget.$data.daily.data = [day]
+      widget.clickDay(day)
+    })
+
+    it('hides the day summary', () => {
+      widget.summaryRestore()
+      expect(widget.showDaySummary).to.equal(false)
     })
   })
 })
