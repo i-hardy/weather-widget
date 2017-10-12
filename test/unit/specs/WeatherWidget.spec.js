@@ -75,22 +75,9 @@ describe('WeatherWidget.vue', () => {
       })
     })
 
-    it('logs the error to the console', (done) => {
-      var consoleSpy = sinon.stub(console, 'log')
+    it('sets an error message as the message', (done) => {
       widget.getData().then(() => {
-        expect(consoleSpy).to.have.been.called
-      }).then(done, done)
-    })
-
-    it('sets waiting to false', (done) => {
-      widget.getData().then(() => {
-        expect(widget.$data.waiting).to.equal(false)
-      }).then(done, done)
-    })
-
-    it('sets an error message as the summary', (done) => {
-      widget.getData().then(() => {
-        expect(widget.$data.daily.summary).to.equal('Weather data could not be retrieved')
+        expect(widget.$data.message).to.equal('Weather data could not be retrieved')
       }).then(done, done)
     })
   })
@@ -171,12 +158,6 @@ describe('WeatherWidget.vue', () => {
       widget.showLows()
       expect(day.showTemp).to.equal(5)
     })
-
-    it('calls getDayStyles to update the view', () => {
-      var styleSpy = sinon.spy(widget, 'getDayStyles')
-      widget.showLows()
-      expect(styleSpy).to.have.been.called
-    })
   })
 
   describe('#showHighs', () => {
@@ -191,12 +172,6 @@ describe('WeatherWidget.vue', () => {
     it('sets the showTemp property of each day to its apparentTemperatureHigh', () => {
       widget.showHighs()
       expect(day.showTemp).to.equal(20)
-    })
-
-    it('calls getDayStyles to update the view', () => {
-      var styleSpy = sinon.spy(widget, 'getDayStyles')
-      widget.showHighs()
-      expect(styleSpy).to.have.been.called
     })
   })
 })
