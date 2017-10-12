@@ -13,9 +13,9 @@
       </ul>
       <p class="weather-text">Click on a day to see a daily weather summary</p>
       <section class="weather-buttons">
-        <button id="summary_btn" class="btn btn-weather btn-blue" type="button" v-on:click="summaryRestore()">Show weekly summary</button>
-        <button id="highs_btn" class="btn btn-weather btn-orange" type="button" v-on:click="showHighs()">Show highs</button>
-        <button id="lows_btn" class="btn btn-weather btn-blue" type="button" v-on:click="showLows()">Show lows</button>
+        <button id="summary_btn" class="btn btn-weather element-blue" type="button" v-on:click="summaryRestore()">Show weekly summary</button>
+        <button id="highs_btn" class="btn btn-weather element-orange" type="button" v-on:click="showHighs()">Show highs</button>
+        <button id="lows_btn" class="btn btn-weather element-blue" type="button" v-on:click="showLows()">Show lows</button>
       </section>
     </section>
   </div>
@@ -60,7 +60,7 @@
         this.daily.data.forEach((day) => {
           var height = 'height:' + day.showTemp * tempHeightFactor + 'px;'
           var color
-          day.showTemp < tempCutOff ? color = 'day day-temp day-blue' : color = 'day day-temp day-orange'
+          day.showTemp < tempCutOff ? color = 'day day-temp element-blue' : color = 'day day-temp element-orange'
           day.style = height
           day.class = color
         })
@@ -107,9 +107,7 @@
     background-color: white;
     padding: 2em 0;
     width: 50%;
-    margin-top: 2em;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 2em auto 0;
   }
 
   .weather-info {
@@ -140,19 +138,19 @@
     outline: none;
   }
 
-  .btn-blue {
+  .element-blue {
     background: rgb(209, 236, 250);
   }
 
-  .btn-blue:hover {
+  .element-blue:hover {
     background: rgba(209, 236, 250, 0.5);
   }
 
-  .btn-orange {
+  .element-orange {
     background: rgb(255, 193, 37)
   }
 
-  .btn-orange:hover {
+  .element-orange:hover {
     background: rgba(255, 193, 37, 0.5);
   }
 
@@ -187,21 +185,5 @@
     font-size: 0.8em;
     content:attr(title);
     word-wrap: break-word;
-  }
-
-  .day-blue {
-    background:rgb(209, 236, 250);
-  }
-
-  .day-blue:hover {
-    background: rgba(209, 236, 250, 0.5);
-  }
-
-  .day-orange {
-    background:rgb(255, 193, 37);
-  }
-
-  .day-orange:hover {
-    background: rgba(255, 193, 37, 0.5);
   }
 </style>

@@ -96,18 +96,18 @@ describe('WeatherWidget.vue', () => {
       expect(day.style).to.include('height:50px')
     })
 
-    it('sets the blue day class if the temperature is below 17', () => {
+    it('sets the blue element class if the temperature is below 17', () => {
       day.showTemp = 15
       widget.$data.daily.data = [day]
       widget.getDayStyles()
-      expect(day.class).to.include('day-blue')
+      expect(day.class).to.include('element-blue')
     })
 
-    it('sets the orange day class if the temperature is 17 or above', () => {
+    it('sets the orange element class if the temperature is 17 or above', () => {
       day.showTemp = 18
       widget.$data.daily.data = [day]
       widget.getDayStyles()
-      expect(day.class).to.include('day-orange')
+      expect(day.class).to.include('element-orange')
     })
   })
 
